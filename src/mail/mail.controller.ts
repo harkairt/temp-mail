@@ -1,21 +1,32 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Post, Query, Param, Delete } from '@nestjs/common';
 import Mailjs from '@cemalgnlts/mailjs';
-
-// {"username":"o0n61@navalcadets.com","password":"r52ydd7u"}
+import { InMemoryStorageService } from '../utils/in-memory-storage-service.js';
 
 @Controller('mail')
 export class MailController {
-  @Get()
-  async getMail(@Query() query: any): Promise<string> {
+  constructor(private readonly storageService: InMemoryStorageService) {}
+
+  @Post()
+  async getToken(): Promise<string> {
     const mailjs = new Mailjs();
-    await mailjs.login(query.email, query.password);
+    const account = await mailjs.createOneAccount();
+    const token = (mailjs as any).token;
+    return token;
+  }
+
+  @Get(':token')
+  async getLastPin(@Param('token') token: string): Promise<string> {
+    const mailjs = new Mailjs();
+    await mailjs.loginWithToken(token);
     const messages = await mailjs.getMessages();
     return `${JSON.stringify(messages)}`;
+  }
 
-    // mailjs.on('arrive', (message) => {
-
-    // });
-
-    return `${JSON.stringify(query)}`;
+  @Delete(':token')
+  async deleteToken(@Param('token') token: string): Promise<string> {
+    const mailjs = new Mailjs();
+    await mailjs.loginWithToken(token);
+    const deleteResult = await mailjs.deleteMe();
+    return JSON.stringify(deleteResult);
   }
 }
