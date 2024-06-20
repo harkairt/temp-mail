@@ -1,5 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import Mailjs from '@cemalgnlts/mailjs';
+
 // {"username":"o0n61@navalcadets.com","password":"r52ydd7u"}
 
 @Controller('mail')
@@ -18,4 +19,3 @@ export class MailController {
     return `${JSON.stringify(query)}`;
   }
 }
-    
