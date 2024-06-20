@@ -1,9 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 @Controller('hello')
 export class HelloController {
-  @Get()
-  getHello(): string {
-    return 'Hello';
+  @Get(':token')
+  getHello(@Param('token') token: string): string {
+    return 'Hello' + token;
   }
 }

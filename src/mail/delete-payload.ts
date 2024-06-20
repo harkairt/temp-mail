@@ -1,9 +1,6 @@
-import { IsString, IsInt } from 'class-validator';
+import { IsString } from 'class-validator';
 
-export class CreateItemDto {
+export class DeleteBody {
   @IsString()
-  readonly name: string;
-
-  @IsInt()
-  readonly quantity: number;
+  readonly token: string;
 }
