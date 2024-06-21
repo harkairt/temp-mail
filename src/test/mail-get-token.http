@@ -1,4 +1,4 @@
-POST http://localhost:3010/mail HTTP/1.1
+POST {{$dotenv HOST}}/mail HTTP/1.1
 content-type: application/json
 
 {}
