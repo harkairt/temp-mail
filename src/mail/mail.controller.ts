@@ -1,12 +1,11 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import Mailjs from '@cemalgnlts/mailjs';
-import { InMemoryStorageService } from '../utils/in-memory-storage-service.js';
 
 const pinEmailSubject = 'Alles Clara Anmeldung';
 
 @Controller('mail')
 export class MailController {
-  constructor(private readonly storageService: InMemoryStorageService) {}
+  constructor() {}
 
   @Get(':token')
   async getLastPin(@Param('token') token: string): Promise<string> {

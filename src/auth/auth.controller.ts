@@ -1,12 +1,9 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import Mailjs from '@cemalgnlts/mailjs';
-import { InMemoryStorageService } from '../utils/in-memory-storage-service.js';
 import { DeleteBody } from './delete-payload.js';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly storageService: InMemoryStorageService) {}
-
   @Post('/register')
   async getEmailAndToken(): Promise<string> {
     const mailjs = new Mailjs();
