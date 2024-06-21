@@ -1,4 +1,4 @@
-DELETE {{$dotenv HOST}}/mail HTTP/1.1
+DELETE {{$dotenv HOST}}/auth/token HTTP/1.1
 content-type: application/json
 
 {

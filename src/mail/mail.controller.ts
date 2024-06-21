@@ -1,24 +1,12 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import Mailjs from '@cemalgnlts/mailjs';
 import { InMemoryStorageService } from '../utils/in-memory-storage-service.js';
-import { DeleteBody } from './delete-payload.js';
 
 const pinEmailSubject = 'Alles Clara Anmeldung';
 
 @Controller('mail')
 export class MailController {
   constructor(private readonly storageService: InMemoryStorageService) {}
-
-  @Post()
-  async getToken(): Promise<string> {
-    const mailjs = new Mailjs();
-    const account = await mailjs.createOneAccount();
-    if (!account.status) {
-      return JSON.stringify(account);
-    }
-    const token = (mailjs as any).token;
-    return JSON.stringify({ token, email: account.data.username });
-  }
 
   @Get(':token')
   async getLastPin(@Param('token') token: string): Promise<string> {
@@ -58,13 +46,5 @@ export class MailController {
     } catch (error) {
       return JSON.stringify({ error });
     }
-  }
-
-  @Delete()
-  async deleteToken(@Body() { token }: DeleteBody): Promise<string> {
-    const mailjs = new Mailjs();
-    await mailjs.loginWithToken(token);
-    const deleteResult = await mailjs.deleteMe();
-    return JSON.stringify(deleteResult);
   }
 }

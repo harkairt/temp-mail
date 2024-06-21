@@ -1,40 +1,40 @@
-import Mailjs from "@cemalgnlts/mailjs";
+// import Mailjs from "@cemalgnlts/mailjs";
 
-const mailjs = new Mailjs();
-let username = "<empty>";
+// const mailjs = new Mailjs();
+// let username = "<empty>";
 
-console.log("[1/4] An account is being created...");
+// console.log("[1/4] An account is being created...");
 
-// Create a random account.
-const acc = await mailjs.createOneAccount();
-if (!acc.status) throw res.message;
+// // Create a random account.
+// const acc = await mailjs.createOneAccount();
+// if (!acc.status) throw res.message;
 
-username = acc.data.username;
+// username = acc.data.username;
 
-mailjs.on("open", onOpen);
-mailjs.on("arrive", onNewMessage);
+// mailjs.on("open", onOpen);
+// mailjs.on("arrive", onNewMessage);
 
-function onOpen() {
-    console.log("[2/4]", "A new mail is expected to arrive.");
-    console.log("[2/4]", username);
-}
+// function onOpen() {
+//     console.log("[2/4]", "A new mail is expected to arrive.");
+//     console.log("[2/4]", username);
+// }
 
-// It is triggered when a new mail arrives.
-function onNewMessage(msg) {
-    console.log("[3/4]", "A new message has been received:");
-    console.log(msg);
-    mailjs.getMessage(msg.id)
-        .then(console.log);
+// // It is triggered when a new mail arrives.
+// function onNewMessage(msg) {
+//     console.log("[3/4]", "A new message has been received:");
+//     console.log(msg);
+//     mailjs.getMessage(msg.id)
+//         .then(console.log);
 
 
-    // Stop listening.
-    mailjs.off();
+//     // Stop listening.
+//     mailjs.off();
 
-    // The created account is no longer needed.
-    mailjs.deleteMe()
-        .then(res => {
-            if (!res.status) throw res.message;
+//     // The created account is no longer needed.
+//     mailjs.deleteMe()
+//         .then(res => {
+//             if (!res.status) throw res.message;
 
-            console.log("[4/4]", "Created account deleted.");
-        });
-}
+//             console.log("[4/4]", "Created account deleted.");
+//         });
+// }
